@@ -112,11 +112,9 @@ def ears (mp3list, songdict):
 	global song
 	while keepAlive:
 		if not pygame.mixer.music.get_busy():
-			try:
 				song = check_input('next', songdict, mp3list)
 				time.sleep(.1)
-			except:
-				pass
+
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
