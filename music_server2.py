@@ -1,7 +1,6 @@
 import os, sys, pygame, random, socket, threading, fcntl, struct, time
 keepAlive = True
 pygame.mixer.init()
-endofsong = 3141
 song = 0
 
 def scan_subdirectories(directory):
@@ -34,8 +33,6 @@ def randomise_playlist(mp3list):
 	return mp3list
 
 def play_playlist(songdict):
-	global mp3list
-	global songlist
 	print "Starting music playback"
 	check_input('play')
 	
@@ -49,13 +46,11 @@ def play_current_song(song):
 		songpath = mp3list[song]
 		songname = songdict[songpath]
 		print "Now playing "+songname
-		print type(mp3list)
 	except:
 		pass
 	return song
 	
 def check_for_playlist():
-	global songdict
 	global mp3list
 	if song == len(mp3list):
 	  	print "End of playlist"
@@ -64,8 +59,6 @@ def check_for_playlist():
 		return
 
 def check_input( data ):
-	global songdict
-	global mp3list
 	try:
 		print 'Command received: ' + data
 	except:
@@ -111,13 +104,9 @@ def socket_listener(current_IP, x):
 
 def data_handler(song, data):
 	song = check_input(data)
-	return song
 
-	
 
 def ears ():
-	global songdict
-	global mp3list
 	time.sleep(2)
 	print "started handler"
 	global keepAlive
