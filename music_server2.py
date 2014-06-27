@@ -1,6 +1,7 @@
-import os, sys, pygame, random, socket, threading, fcntl, struct, time
+import os, sys, random, socket, threading, fcntl, struct, time
+import pygame.mixer as mixer
 keepAlive = True
-pygame.mixer.init()
+mixer.init()
 song = 0
 
 def scan_subdirectories(directory):
@@ -40,9 +41,9 @@ def play_current_song(song):
 	global songdict
 	global mp3list
 	try:
-		pygame.mixer.music.load(mp3list[song])
-		pygame.mixer.music.set_endevent(endofsong)
-		pygame.mixer.music.play(0,0.1)
+		mixer.music.load(mp3list[song])
+		mixer.music.set_endevent(endofsong)
+		mixer.music.play(0,0.1)
 		songpath = mp3list[song]
 		songname = songdict[songpath]
 		print "Now playing "+songname
@@ -70,13 +71,13 @@ def check_input( data ):
 			song = play_current_song(song)
 			return song
 		elif data == 'pause':
-			pygame.mixer.music.pause()
+			mixer.music.pause()
 			return song
 		elif data == 'unpause':
-			pygame.mixer.music.unpause()
+			mixer.music.unpause()
 			return song
 		elif data == 'stop':
-			pygame.mixer.music.stop()
+			mixer.music.stop()
 			keepAlive = False
 			print "Ending program"
 			exit(0)
@@ -111,7 +112,7 @@ def ears ():
 	print "started handler"
 	global keepAlive
 	while keepAlive:
-		if not pygame.mixer.music.get_busy():
+		if not mixer.music.get_busy():
 			data = 'next'
 			check_input( data)
 			time.sleep(0.1)
@@ -135,7 +136,7 @@ def open_socket(current_IP):
 			pass
 
 
-current_IP = get_ip_address('eth0')
+current_IP = get_ip_address('eth3')
 current_IP = str(current_IP)
 x = open_socket(current_IP)
 print 'listening on '+current_IP+":"+str(x)
