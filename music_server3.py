@@ -26,4 +26,5 @@ class listeners(object):
 		s.listen(1)
 		while keepAlive:
 			conn, addr = s.accept()
-			data = 
+			data = conn.recv(1024)
+			
