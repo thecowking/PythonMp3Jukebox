@@ -1,4 +1,4 @@
-import os, sys, random, socket, threading, fcntl, struct, time
+import os, sys, random, socket, threading, fcntl, struct, time, select
 import pygame.mixer as mixer
 keepAlive = True
 mixer.init()
@@ -91,6 +91,9 @@ def check_input( data ):
 			return song
 
 def socket_listener(current_IP, x):
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	
+	'''
 	global keepAlive
 	global song
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -101,7 +104,7 @@ def socket_listener(current_IP, x):
 		data = conn.recv(1024)
 		conn.close()
 		data_handler(song, data)
-
+	'''
 
 def data_handler(song, data):
 	song = check_input(data)
