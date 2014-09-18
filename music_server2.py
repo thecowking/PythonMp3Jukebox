@@ -92,7 +92,15 @@ def check_input( data ):
 
 def socket_listener(current_IP, x):
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	global keepAlive
+	global song
+	s.setblocking(0)
+	s.bind((current_IP,x))
+	s.listen(1)
+	inputs = [s]
+	outputs = []
 	
+
 	'''
 	global keepAlive
 	global song
